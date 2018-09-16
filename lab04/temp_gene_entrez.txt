@@ -1,0 +1,10 @@
+
+1. G6PD
+Official Symbol: G6PD and Name: glucose-6-phosphate dehydrogenase [Homo sapiens (human)]
+Other Aliases: G6PD1
+Other Designations: glucose-6-phosphate 1-dehydrogenase
+Chromosome: X; Location: Xq28
+Annotation: Chromosome X NC_000023.11 (154531390..154547586, complement)
+MIM: 305900
+ID: 2539
+
