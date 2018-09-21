@@ -1,0 +1,9 @@
+>seq7
+GGGCGAACCUGAUGAGCUUGGUUUAGUAUUUACAGCUCCAUACAGGAGGUGUUAUCCCUAUGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGGCCAGAGACAAU
+.............................xxxxxxxxxxxxxxxx...................................................................
+>seq8
+GGGCGAACCUGAUGAGCUUGGUUUAGUAUUUACAGCUCCAUACAGGAGGUGUUAUCCCUAUGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGGCCAGAGACAAU
+................................................xxxxxxxxxxxxxxxx................................................
+>seq9
+GGGCGAACCUGAUGAGCUUGGUUUAGUAUUUACAGCUCCAUACAGGAGGUGUUAUCCCUAUGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGGCCAGAGACAAU
+.............................xxxxxxxxxxxxxxxx...xxxxxxxxxxxxxxxx................................................

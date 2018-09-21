@@ -1,0 +1,9 @@
+>seq10
+GGGCGACCCUGAUGAGCUUGGUUGAGUAUUUACAGCUCCAUACAUGAGGUGUUCUCGCUACGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGCCC
+..........................xxxxxxxxxxxxxxxxxxxx.........................................................
+>seq11
+GGGCGACCCUGAUGAGCUUGGUUGAGUAUUUACAGCUCCAUACAUGAGGUGUUCUCGCUACGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGCCC
+..............................................xxxxxxxxxxxxxxxxxxxx.....................................
+>seq12
+GGGCGACCCUGAUGAGCUUGGUUGAGUAUUUACAGCUCCAUACAUGAGGUGUUCUCGCUACGCAAGUUCGAUCAGGCGAAACGGUGAAAGCCGUAGGUUGCCC
+..........................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.....................................
