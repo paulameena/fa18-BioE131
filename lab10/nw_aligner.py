@@ -13,6 +13,7 @@ resulting alignment matrix and optimal alignment to STDOUT.
 
 import os
 import sys
+import random
 
 class NWAligner:
     def __init__(self, score_matrix_fname):
@@ -108,7 +109,7 @@ class NWAligner:
         # print(seqs)
         return seqs
 
-    def align(self, seq_x, seq_y, print_matrix = True):
+    def align(self, seq_x, seq_y, print_matrix = False):
         """
         Input: (Strings) Two sequences to be aligned (seq_x and seq_y).
                (Boolean) If print_matrix is True, print the dynamic programming
@@ -133,15 +134,17 @@ class NWAligner:
         # one contains the dynamic programming matrix, the other contains
         # pointers we'll use during traceback
         matrix = [[0] * (len(seq_y) + 1) for _ in range(len(seq_x) + 1)]
-        pointers = [[0] * (len(seq_y) + 1) for _ in range(len(seq_x) + 1)]
+        pointers = [[[0]] * (len(seq_y) + 1) for _ in range(len(seq_x) + 1)]
 
         ### TODO ###
         # Fill the top row of the matrix with scores for gaps.
         for i in range(len(matrix)):
-            matrix[i][0] = self.gap_penalty
+            matrix[i][0] = matrix[i-1][0] + self.gap_penalty
+            pointers[i][0] = 'L'
         # Fill the first column of the matrix with scores for gaps.
         for i in range((len(seq_y) + 1)):
-            matrix[0][i] = self.gap_penalty
+            matrix[0][i] = matrix[0][i-1] + self.gap_penalty
+            pointers[0][i] = 'U'
         #print(matrix)
         ###
         ### RECURSION
@@ -169,12 +172,13 @@ class NWAligner:
                 # print(left)
                 # print (up)
                 # print('max is ' + str(max_val))
+                if max_val == left:
+                    pointers[x][y].append('L')
+                if max_val == up:
+                    pointers[x][y].append('U')
                 if max_val == diagonal:
-                    pointers[x][y]= 'D'
-                elif max_val == left:
-                    pointers[x][y] = 'L'
-                elif max_val == up:
-                    pointers[x][y] = 'U'
+                    pointers[x][y].append('D')
+
                 # Keep track of which of these choices you made by setting
                 #   the same element (i.e., pointers[x][y]) to some value that
                 #   has meaning to you.
@@ -194,33 +198,34 @@ class NWAligner:
         # fill these lists with the aligned sequences
         align_x = []
         align_y = []
-        print(pointers)
+        #print(pointers)
         while x > 0 or y > 0:
             # print(x)
             # print(y)
-            move = pointers[x][y]
-            if x == 0:
-                while y > 0:
-                    align_x.append('-')
-                    align_y.append(seq_y[y - 1])
-                    y -= 1
-            if y ==0:
-                while x > 0:
-                    align_y.append('-')
-                    align_x.append(seq_x[x - 1])
-                    x -= 1
+            move = random.choice(pointers[x][y])
+            #print(move)
+            # if x == 0:
+            #     while y > 0:
+            #         align_x.append('-')
+            #         align_y.append(seq_y[y - 1])
+            #         y -= 1
+            # if y ==0:
+            #     while x > 0:
+            #         align_y.append('-')
+            #         align_x.append(seq_x[x - 1])
+            #         x -= 1
             if move == 'D':
                 align_x.append(seq_x[x-1])
                 align_y.append(seq_y[y-1])
                 x -= 1
                 y -= 1
                 continue;
-            if move == 'L':
+            elif move == 'L':
                 align_y.append('-')
                 align_x.append(seq_x[x-1])
                 x -= 1
                 continue;
-            if move == 'U':
+            elif move == 'U':
                 align_x.append('-')
                 align_y.append(seq_y[y-1])
                 y -= 1
