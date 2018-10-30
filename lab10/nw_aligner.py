@@ -61,16 +61,16 @@ class NWAligner:
                     #print(reference_codes)
                 elif len(line.split()) < len(reference_codes):
                     gap_penalty = int(line)
-                    print(gap_penalty)
                 else:
-                    print(line)
                     curr = list(line.split())
-                    for i in range(len(reference_codes)):
+                    for i in range(len(curr)):
                         score_matrix[reference_codes[i]][reference_codes[line_num-1]] = curr[i]
                     #count +=1
                 # Last line of matrix contains the gap penalty which must be pulled
                 # out and returned.
                 #count = 0
+                # print(score_matrix)
+                # print(gap_penalty)
         return score_matrix, gap_penalty
 
     @staticmethod
@@ -105,10 +105,10 @@ class NWAligner:
             if len(seqs) != 2:
                 raise Exception('There were not 2 seqs in the fasta file')
         # Throw an error if there are more than two sequences in the file.
-        print(seqs)
+        # print(seqs)
         return seqs
 
-    def align(self, seq_x, seq_y, print_matrix = False):
+    def align(self, seq_x, seq_y, print_matrix = True):
         """
         Input: (Strings) Two sequences to be aligned (seq_x and seq_y).
                (Boolean) If print_matrix is True, print the dynamic programming
@@ -142,6 +142,7 @@ class NWAligner:
         # Fill the first column of the matrix with scores for gaps.
         for i in range((len(seq_y) + 1)):
             matrix[0][i] = self.gap_penalty
+        #print(matrix)
         ###
         ### RECURSION
         ###
@@ -151,6 +152,7 @@ class NWAligner:
             for y in range(1, len(seq_y)+1):
                 match_score = self.score_matrix[seq_x[x-1]][seq_y[y-1]]
                 match_score = int(match_score)
+                #print(match_score)
                 ### TODO ###
                 # Take the maximum score of three possibilities:
                 #   1) The element in the matrix diagonal from this one
@@ -163,12 +165,16 @@ class NWAligner:
                 up = int(matrix[x][y-1]) + self.gap_penalty
                 max_val = max(diagonal, left, up)
                 matrix[x][y] = max_val
+                # print(diagonal)
+                # print(left)
+                # print (up)
+                # print('max is ' + str(max_val))
                 if max_val == diagonal:
                     pointers[x][y]= 'D'
                 elif max_val == left:
-                    pointers[x][y] = 'L'
+                    pointers[x][y] = 'U'
                 else:
-                    pointers[x][y]= 'U'
+                    pointers[x][y]= 'L'
                 # Keep track of which of these choices you made by setting
                 #   the same element (i.e., pointers[x][y]) to some value that
                 #   has meaning to you.
@@ -190,20 +196,22 @@ class NWAligner:
         align_y = []
 
         while x > 0 or y > 0:
+            # print(x)
+            # print(y)
             move = pointers[x][y]
             if move == 'D':
                 align_x.append(seq_x[x-1])
                 align_y.append(seq_y[y-1])
-                x -=1
-                y-=1
+                x -= 1
+                y -= 1
             elif move == 'L':
                 align_y.append('-')
                 align_x.append(seq_x[x-1])
-                x -=1
+                x -= 1
             elif move == 'U':
                 align_x.append('-')
                 align_y.append(seq_y[y-1])
-                y -=1
+                y -= 1
             ### TODO ###
             # Follow pointers back through the matrix to the origin.
             # Depending on which "move" you made at each element in the
@@ -211,7 +219,7 @@ class NWAligner:
             #   seq_y to a gap.
 
         # flip the alignments, as they're reversed
-        return ("".join(align_x[::-1]), "".join(align_y[::-1]))
+        return "".join(align_x[::-1]), "".join(align_y[::-1])
 
 ###                                      ###
 ### NO NEED TO EDIT CODE BELOW THIS LINE ###
