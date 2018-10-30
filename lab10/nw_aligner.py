@@ -172,9 +172,9 @@ class NWAligner:
                 if max_val == diagonal:
                     pointers[x][y]= 'D'
                 elif max_val == left:
+                    pointers[x][y] = 'L'
+                elif max_val == up:
                     pointers[x][y] = 'U'
-                else:
-                    pointers[x][y]= 'L'
                 # Keep track of which of these choices you made by setting
                 #   the same element (i.e., pointers[x][y]) to some value that
                 #   has meaning to you.
@@ -194,24 +194,37 @@ class NWAligner:
         # fill these lists with the aligned sequences
         align_x = []
         align_y = []
-
+        print(pointers)
         while x > 0 or y > 0:
             # print(x)
             # print(y)
             move = pointers[x][y]
+            if x == 0:
+                while y > 0:
+                    align_x.append('-')
+                    align_y.append(seq_y[y - 1])
+                    y -= 1
+            if y ==0:
+                while x > 0:
+                    align_y.append('-')
+                    align_x.append(seq_x[x - 1])
+                    x -= 1
             if move == 'D':
                 align_x.append(seq_x[x-1])
                 align_y.append(seq_y[y-1])
                 x -= 1
                 y -= 1
-            elif move == 'L':
+                continue;
+            if move == 'L':
                 align_y.append('-')
                 align_x.append(seq_x[x-1])
                 x -= 1
-            elif move == 'U':
+                continue;
+            if move == 'U':
                 align_x.append('-')
                 align_y.append(seq_y[y-1])
                 y -= 1
+                continue;
             ### TODO ###
             # Follow pointers back through the matrix to the origin.
             # Depending on which "move" you made at each element in the
