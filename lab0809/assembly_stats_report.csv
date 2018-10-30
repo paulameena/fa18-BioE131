@@ -1,0 +1,3 @@
+filename	total_length	number	mean_length	longest	shortest	N_count	Gaps	N50	N50n	N70	N70n	N90	N90n
+./spades_assembly_all_illumina/scaffolds.fasta	6658426	143	46562.42	537743	128	144	7	332489	8	207869	14	92098	24
+./spades_assembly_all_illumina/contigs.fasta	6654856	149	44663.46	489856	128	0	0	230325	10	168584	16	81820	28
