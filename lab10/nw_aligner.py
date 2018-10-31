@@ -174,6 +174,7 @@ class NWAligner:
                 # print('max is ' + str(max_val))
                 if max_val == left:
                     pointers[x][y]='L'
+                if max_val == up:
                     pointers[x][y]='U'
                 if max_val == diagonal:
                     pointers[x][y]='D'
