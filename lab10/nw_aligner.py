@@ -173,11 +173,10 @@ class NWAligner:
                 # print (up)
                 # print('max is ' + str(max_val))
                 if max_val == left:
-                    pointers[x][y].append('L')
-                if max_val == up:
-                    pointers[x][y].append('U')
+                    pointers[x][y]='L'
+                    pointers[x][y]='U'
                 if max_val == diagonal:
-                    pointers[x][y].append('D')
+                    pointers[x][y]='D'
 
                 # Keep track of which of these choices you made by setting
                 #   the same element (i.e., pointers[x][y]) to some value that
@@ -202,7 +201,7 @@ class NWAligner:
         while x > 0 or y > 0:
             # print(x)
             # print(y)
-            move = random.choice(pointers[x][y])
+            move = pointers[x][y]
             #print(move)
             # if x == 0:
             #     while y > 0:
